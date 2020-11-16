@@ -1,60 +1,65 @@
+
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld/>
-    </v-main>
-  </v-app>
+  <div id="App" class="container">
+    <!-- ↓をコンポーネント化したい -->
+    <div class="header">
+      <img src="./assets/logo.png" class="logo">
+      <h1>{{headerName}}</h1>
+    </div>
+    <!-- ↑をコンポーネント化したい -->
+    <todoList />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+
+import TodoList from './components/TodoList.vue';
+
 
 export default {
-  name: 'App',
-
   components: {
-    HelloWorld,
+    TodoList,
   },
-
+  name: 'App',
   data: () => ({
     //
+    headerName: 'Todo App'
   }),
 };
 </script>
+
+<style>
+  * {
+    box-sizing: border-box;
+    background-color: rgb(246, 224, 246);
+  }
+
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+  }
+
+  #app {
+    color: #2c3e50;
+    margin-top: 20px;
+    font-size: 24px;
+  }
+
+  .logo {
+    display: block;
+    margin: 20px 40px;
+    height: 75px;
+  }
+
+  h1 {
+    text-align: left;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+</style>
