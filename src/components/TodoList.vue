@@ -2,6 +2,7 @@
 <template>
   <v-app>
     <div>
+      <!-- <Form /> -->
       <form @keyup.enter.prevent="addTodo">
         <v-text-field v-model="title"
                       prepend-icon="mdi-card-plus"
@@ -10,19 +11,25 @@
                       prepend-icon="mdi-clock"
                       label="When do you do by?" />
       </form>
+      <!-- <TotalTasks /> -->
       <h4 class="total-tasks">Total Tasks: {{todos.length}}</h4>
-      <!-- All Deleteボタンを作りたい -->
       <div v-for="(todo,index) in todos"
                   :key="todo.id"
                   class="todo-item">
         <div class="todo-item-left">
           <input  type="checkbox"
-                  :class="completed"
-                  @click="check">
-          {{ todo.title + '(' + todo.date +')'}}
+                  :checked="todo.completed"
+                  @change="toggle(todo)">
+          <del v-if="todo.completed">
+            {{ todo.title + '(' + todo.date +')'}}
+          </del>
+          <span v-else>
+            {{ todo.title + '(' + todo.date +')'}}
+          </span>
           <hr>
         </div>
         <p class="remove-item" @click="removeTodo(index)">
+          <!-- 作成日：{{todo.now}} -->
           <span class="material-icons">
             ×
           </span>
@@ -37,13 +44,20 @@
 
 
 <script>
+
+// import TotalTasks from './TotalTasks.vue';
+
 export default {
   name: 'todo-list',
+  components: {
+    // TotalTasks,
+  },
   data() {
     return {
       idForTodo: 1,
       title:'',
       date:'',
+      now: '',
       todos:[]
     }
   },
@@ -56,6 +70,7 @@ export default {
         id: this.idForTodo,
         title: this.title,
         date: this.date,
+        now: new Date(),
         completed: false,
       }),
       this.title = '',
@@ -69,11 +84,15 @@ export default {
       }
     },
 
-    check() {
-      if(this.todo.completed) {
-        this.todos.title.classList.add('completed')
-      }
-    },
+    // check() {
+    //   if(this.todo.completed) {
+    //     this.todos.title.classList.add('completed')
+    //   }
+    // },
+
+    toggle(todo) {
+      todo.completed = !todo.completed
+    }
 
   }
 }
